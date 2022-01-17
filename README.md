@@ -1,2 +1,2 @@
-# C-_study
+# C++_study
 study basic C++
