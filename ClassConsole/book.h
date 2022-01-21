@@ -5,11 +5,12 @@
 class Book
 {
 public:
+    // 생성자
     Book();
     ~Book();
 
 public:
-    //메소드(멤버함수)
+    // 메소드(멤버함수)
     void Move(int page);
     void Show(void); //void생략가능
 

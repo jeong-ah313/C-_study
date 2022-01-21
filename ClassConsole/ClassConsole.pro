@@ -10,7 +10,6 @@ CONFIG -= app_bundle
 SOURCES += \
         book.cpp \
         main.cpp \
-        myparent.cpp \
         university.cpp
 
 # Default rules for deployment.
@@ -20,5 +19,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     book.h \
-    myparent.h \
     university.h
