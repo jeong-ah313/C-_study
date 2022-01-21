@@ -5,7 +5,7 @@
 void example1()
 {
     //배열이란? 같은 타입의 변수들로이루어진 유한 집합
-    //배열의 구성요소: 배열요소(element): 각각의 값, 인데스(index): 배열에서의 우위치를 가리키는 숫자
+    //배열의 구성요소: 배열요소(element): 각각의 값, 인덱스(index): 배열에서의 우위치를 가리키는 숫자
 
     //1차원배열
     std::cout << "예제.1차원배열" << std::endl;
@@ -285,8 +285,8 @@ void example5()
     // 더는 사용하지 않는 메모리를 다시 ㅁㅔ모리 공간에 돌려준다
     // 문법(사용법): delete 포인터이름;
 
-    int *ptr_int = new int;
-    *ptr_int = 100;
+    int *ptr_int = new int(100); // int(100)처럼 ㅆㅓ줘도 됨.
+//    *ptr_int = 100;
 
     double *ptr_double = new double;
     *ptr_double = 100.123;
@@ -298,7 +298,7 @@ void example5()
     std::cout << "double형 숫자의 메모리 주소는 " << ptr_double << "입니다." << std::endl;
 
     delete ptr_int;
-    delete ptr_double; //숫자값만-> *ptr_double은 삭제할 수 없나봄..오류뜸
+    delete ptr_double;
 
     // +) 배열을 삭제할떄는 delete []
 
