@@ -1,14 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <map>
 #include <algorithm>
 #include <QVector>
-// list
-// C++의 list는 더블 링크드 리스트와 비슷하다. -> 노드 기반 컨테이너
-// 정렬(sort), 합치기(merge), 이어붙이기(splice)가 있음
-// 벡터와 마찬가지로, push_front(), push_back(), pop_front(), pop_back(), insert(), erase() 멤버함수가 있음
-// 벡터와 다르게, at, [] 연산자가 존재하지 ㅇ낳는다. 반복자 ++, --로 전급해야 함
-// 형식: list<[Data type]> [변수이름];
 
 // 추후에 배울 QT에 대해서..잠깐...
 template <typename T>
@@ -108,6 +103,149 @@ int main()
     // v.rbegin() --> (revers begin의 약자) 벡터의 끝 지점을 시작점으로 반환
     // v.rend() --> (revers end의 약자) 벡터의(시작+1) 지점을 끝 부분으로 반환
 
+
+
+
+
+    // -------------------------------------------------------------------------------------------------------------
+    // list
+    // C++의 list는 더블 링크드 리스트와 비슷하다. -> 노드 기반 컨테이너
+    // 정렬(sort), 합치기(merge), 이어붙이기(splice)가 있음
+    // 벡터와 마찬가지로, push_front(), push_back(), pop_front(), pop_back(), insert(), erase() 멤버함수가 있음
+    // 벡터와 다르게, at, [] 연산자가 존재하지 ㅇ낳는다. 반복자 ++, --로 전급해야 함
+    // 형식: list<[Data type]> [변수이름];
+
+    // 관련 함수 정리
+    // 반복자
+    // begin(): beginning iterator 반환
+    // end(): end iterator 반환
+    // 삽입
+    // push_front(): 리스트 맨 앞의 원소 삭제
+    // pop_back(): 리스츠 맨 뒤의 원소 삭제
+    // erase(iterator): iterator가 가리키는 부분의 원소 삭제
+    // 조회
+    // *iterato: iterator가 가리키는 원소에 접근
+    // front(): 첫번ㅉㅐ 원소 반환
+    // back(): 마지막 원소 반환
+    // 기타
+    // empty(): 리스트가 비어있는지 여부
+    // size(): 리스트 사이즈 반환
+
+    // 리스트 생성
+    std::list<int> a;
+
+    // 원소 추가
+    a.push_back(22);
+    a.push_back(33);
+    a.push_front(11);
+    a.push_back(44);
+    a.push_back(55);
+
+    // 반복자 생성
+    std::list<int>::iterator iter = a.begin();
+
+    // 리스트 출력
+    for (iter=a.begin(); iter != a.end(); ++iter)
+    {
+        std::cout << *iter << std::endl; // 원본 리스트: 11 22 33 44 55
+    }
+
+   std::cout << "" << std::endl;
+
+   // 원소 삭제
+   a.pop_front();
+   a.pop_back();
+
+   for(iter=a.begin(); iter != a.end(); ++iter)
+   {
+       std::cout << *iter << std::endl; // 원소 삭제 후: 22 33 44
+    }
+
+   std::cout << "" << std::endl;
+
+   // 리스트 사이즈
+   std::cout << a.size() << std::endl;
+
+
+   // 리스트가 비어있는지 확인
+   std::cout << a.empty() << std::endl;
+
+   // 리스트의 첫번ㅉㅐ 원소 확인
+   std::cout << a.front() << std::endl;
+
+//   // 반복자 2번ㅉㅐ 위치로 이동
+//   iter++;
+//   iter++;
+//   a.insert(iter, 55555);
+//   for(iter=a.begin(); iter != a.end(); ++iter)
+//   {
+//       std::cout << *iter << std::endl; //22.
+//   }
+
+
+
+
+   // -------------------------------------------------------------------------------------------------------------
+   // map
+   // 맵 기본 함수
+
+   // 기본 형태
+   // map<key, value>: key와 value를 pair 형태로 선언합니다.
+
+   // iterator(반복적)
+   // begin(): beginning iterator를 반환
+   // end(): end iterator를 반환
+
+   // 추가 및 삭제
+   // insert(make_pair(key, value)): 맵에 원소를 pair 형태로 추가
+   // erase(key): 맵에서 key(키 값)에 해당하는 원소 삭제
+   // clear(): 맵의 원소를 모두 삭제
+
+   // 조회
+   // find(key): key(키값)에 해당하는 iterator를 반환
+   // count(key): key(키값)에 해당하는 원소들(vlaue들)의 개수를 반환
+
+   // 기타
+   // empty(): 맵이 비어있으면 true 아니면 false를 반환
+   // size(): 맵 원소들의 수를 반환
+
+   //맵 생성
+   // <string, int> => <key, value>
+   std::map<std::string, int> m;
+
+   // insert(key, value)
+   m.insert(std::make_pair("a",1));
+   m.insert(std::make_pair("b", 2));
+   m.insert(std::make_pair("c", 3));
+   m.insert(std::make_pair("d", 4));
+   m.insert(std::make_pair("e", 5));
+   m["f"] =6; // also possible
+
+   // erase(key)
+   m.erase("d");
+   m.erase("e");
+   m.erase(m.find("f")); // also posiible
+
+   // empty(), size()
+   if(!m.empty()) std::cout << "m size: " << m.size() << '\n';
+
+   // find(key)
+   // first: key값을 가리킴, second: value값을 가리킴
+   std::cout << "a: " << m.find("a")->second << '\n';
+   std::cout << "b: " << m.find("b")->second << '\n';
+
+   // count(key)
+   std::cout << "a count: " << m.count("a") << '\n';
+   std::cout << "a count: " << m.count("b") << '\n';
+
+   // begin(), end()
+   std::cout << "traverse" << '\n';
+
+   // map<stirnf, int>::iterator it; also possible
+   for (auto it = m.begin(); it != m.end(); it++)
+   {
+       std::cout << "key: " << it->first << " " << "value: " << it->second << '\n';
+   }
 
 
     return 0;
