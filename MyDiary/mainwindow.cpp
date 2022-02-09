@@ -76,7 +76,7 @@ void MainWindow::on_pushButton_2_clicked()
     file.close();
 }
 
-// txt 파일 저장
+// txt 파일 저장 - 파일 저장 안됨....
 void MainWindow::on_pushButton_3_clicked()
 {
     QString filePath = QFileDialog::getSaveFileName(this, "파일 저장", "C:\\Users\\user\\Desktop", "Files(*.txt)"); // 현재 문서를 저장할 파일을 선택
