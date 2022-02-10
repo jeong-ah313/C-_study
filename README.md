@@ -1,2 +1,2 @@
 # C++_study
-study basic C++
+study basic C++, study qt
