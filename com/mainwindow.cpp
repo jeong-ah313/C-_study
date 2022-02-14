@@ -16,41 +16,33 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_ui->setupUi(this);
 
+    /// 시리즈 생성
+    m_series = new QLineSeries();
+
     /// 차트 생성
     m_chart = new QChart();
     m_chart->legend()->hide();
-//    chart->addSeries(f);
     m_chart->setTitle("Line Chart Example");
+    m_chart->addSeries(m_series);
+
+    /// 축 생성
 //    m_chart->createDefaultAxes();
     QValueAxis *axisX = new QValueAxis();
     QValueAxis *axisY = new QValueAxis();
     m_chart->addAxis(axisX, Qt::AlignBottom);
     m_chart->addAxis(axisY, Qt::AlignLeft);
-
-    axisX->setRange(0, 3000);
+    axisX->setRange(0, 600);
 //    axisX->setTickCount(10);
     axisY->setRange(-20, 20);
-
-//    auto axesX = m_chart->axes(Qt::Horizontal);
-//    auto axesY = m_chart->axes(Qt::Vertical);
-//    axesX.at(0)->setRange(0, 100);
-//    axesY.at(0)->setRange(0, 100);
-
-    /// 시리즈 생성
-    m_series = new QLineSeries();
-//    for (int i = 0; i < 500; i++) {
-//        QPointF point((qreal) i, qSin(M_PI / 50 * i) * 100);
-//        point.ry() += QRandomGenerator::global()->bounded(20);
-//        *m_series << point; // operator
-//    }
+    m_series->attachAxis(axisX);
+    m_series->attachAxis(axisY);
 
     /// 차트뷰 생성
     QChartView *chartView = new QChartView(m_chart);
     chartView->setRenderHint(QPainter::Antialiasing);
     m_ui->verticalLayout->addWidget(chartView);
 
-    m_chart->addSeries(m_series);
-
+    /// 버튼 초기화
     m_ui->Connect->setEnabled(true);  // ui 멤버변수에서 연결동작에 대한 활성화를 설정
     m_ui->DisConnect->setEnabled(false);  // ui 멤버변수에서 비연결동작에 대한 활성화를 설정
 
@@ -73,9 +65,11 @@ MainWindow::~MainWindow()
     delete m_ui;
 }
 
-// 버튼 클릭시, 시리얼포트 열 떄.
+// 버튼 클릭시, 시리얼포트 열 ㄸㅐ.
 void MainWindow::on_Connect_clicked()
 {
+    m_series->clear();
+
     m_serial->setPortName("COM5"); // 포트 이름 설정
     m_serial->setBaudRate(9600); // 보드레이트 설정
     m_serial->setDataBits(QSerialPort::Data8); // 데이터 비트 설정
@@ -112,17 +106,19 @@ void MainWindow::readData() // 읽기데이터 함수
         // 차트에 숫자로 넣어주시 위해
         // 문자열(string) -> 실수(float)로 변환
 
-        auto points = m_series->pointsVector();
+        const int DATA_SIZE = 1;
 
+        auto points = m_series->pointsVector();
         const double x = points.length() + m_data.length();
         const double y = result.toDouble();
         m_data.push_back(QPointF(x, y));
-//        if(m_data.size() == 100)
-//        {
-//            points.append(m_data);
-//            m_series->replace(points); // 화면 다시 그린다.
-//            m_data.clear();
-//        }
+
+        if(m_data.size() == DATA_SIZE)
+        {
+            points.append(m_data);
+            m_series->replace(points); // 화면 다시 그린다.
+            m_data.clear();
+        }
 
 //        float f = std::stof(result.data()); // float로 바꿔줌
 //        qDebug() << QString::number(y);
