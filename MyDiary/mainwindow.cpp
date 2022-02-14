@@ -61,7 +61,7 @@ void MainWindow::on_pushButton_2_clicked()
 
     QTextStream in(&file);
     while (!in.atEnd()){ // 파일의 끝이 아니면
-        QString line = in.readLine(); // 한줄씨ㄱ 읽는다.
+        QString line = in.readLine(); // 한줄씪 읽는다.
         //            qDebug() << line;
         text += line + "\n";
     }
@@ -69,8 +69,7 @@ void MainWindow::on_pushButton_2_clicked()
 
     QMessageBox::information(this, "title", "Success!");
 
-
-    //    qDebug() << text;
+//        qDebug() << text;
     ui->textEdit_2->setText(text);
 
     file.close();
